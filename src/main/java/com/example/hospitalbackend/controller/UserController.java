@@ -20,6 +20,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    /**
+     * @Description: login
+     * @Param: username, password
+     * @return: Msg
+     * @Author: 赵熙
+     */
     @RequestMapping("/login")
     public Msg login(@RequestBody Map<String,String> params){
         String username=params.get(Constant.USERNAME);
@@ -43,5 +50,19 @@ public class UserController {
         }
 
     }
+    /**
+     * @Description: logout
+     * @Param: null
+     * @return: Msg
+     * @Author: Kiddo
+     */
+    @RequestMapping("/logout")
+    public Msg logout() {
+        Boolean status = SessionUtil.removeSession();
 
+        if (status) {
+            return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.LOGOUT_SUCCESS_MSG);
+        }
+        return MsgUtil.makeMsg(MsgCode.ERROR, MsgUtil.LOGOUT_ERR_MSG);
+    }
 }

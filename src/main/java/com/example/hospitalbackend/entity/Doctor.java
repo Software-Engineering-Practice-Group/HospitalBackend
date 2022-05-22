@@ -45,4 +45,6 @@ public class Doctor {
     public String getDepartment() {
         return department;
     }
+
+    public String image() {return image;}
 }

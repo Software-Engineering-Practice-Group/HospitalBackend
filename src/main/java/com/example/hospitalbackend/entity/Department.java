@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "department")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-public class department {
+public class Department {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
@@ -34,4 +34,11 @@ public class department {
     private String process5;
     private String process6;
 
+    public String getIntro() {
+        return introduction;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

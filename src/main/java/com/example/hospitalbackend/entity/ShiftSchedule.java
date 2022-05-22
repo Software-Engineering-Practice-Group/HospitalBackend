@@ -21,13 +21,13 @@ public class ShiftSchedule {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private Integer doctor_id;
     private String doctor_name;
-    private Integer doctor_capacity;
-    private Integer DoctorState;
+//    private Integer doctor_capacity;
+//    private Integer DoctorState;
     private Integer time1;
     private Integer time2;
     private Integer time3;
@@ -36,21 +36,10 @@ public class ShiftSchedule {
     /*@Column注解用来标识实体类中属性与数据表中字段的对应关系*/
     /*@Transient :在实体类（pojo）属性上使用、表示数据库表中没有这个字段就忽略。*/
 
-    public Integer getDoctorState() {
-        return DoctorState;
-    }
-
-    public void setDoctorState(Integer doctorState) {
-        DoctorState = doctorState;
-    }
-
-    public Integer getDoctor_capacity() {
-        return doctor_capacity;
-    }
-
-    public void setDoctor_capacity(Integer doctor_capacity) {
-        this.doctor_capacity = doctor_capacity;
-    }
+//    public Integer getDoctorState() {return DoctorState;}
+//    public void setDoctorState(Integer doctorState) {DoctorState = doctorState;}
+//    public Integer getDoctor_capacity() {return doctor_capacity;}
+//    public void setDoctor_capacity(Integer doctor_capacity) {this.doctor_capacity = doctor_capacity;}
 
     public Date getDate() {
         return date;

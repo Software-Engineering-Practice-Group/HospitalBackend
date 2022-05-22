@@ -17,19 +17,25 @@ public class OrderTableImpl implements OrderTableDao {
     @Autowired
     private ShiftScheduleRepository shiftScheduleRepository;
 
-
+    /**
+     * @Description: AddNewOrder
+     * @Param: DoctorId, PatientId, orderNum, ScheduleId
+     * @return: OrderTable
+     * @Author: 赵熙
+     */
     @Transactional
     @Override
     public OrderTable AddNewOrder(int DoctorId,int PatientId, int orderNum,int ScheduleId)
     {   /*增加新预约单并返回*/
         ShiftSchedule shiftSchedule=shiftScheduleRepository.getById(ScheduleId);
-        int oldCapacity=shiftSchedule.getDoctor_capacity();
+        int oldCapacity=shiftSchedule.getTime1()+shiftSchedule.getTime2()
+                +shiftSchedule.getTime3()+shiftSchedule.getTime4();
         OrderTable newOrder=new OrderTable();
 
         if(oldCapacity>0){
             newOrder.setDoctor_id(DoctorId);
             newOrder.setUser_id(PatientId);
-            newOrder.setDate(orderNum);
+//            newOrder.setDate(orderNum);
             newOrder.setProcess(1);
             /*process默认为1*/
             oldCapacity--;
@@ -40,7 +46,7 @@ public class OrderTableImpl implements OrderTableDao {
         }
         ShiftSchedule schedule=new ShiftSchedule();
         schedule.setId(ScheduleId);
-        schedule.setDoctor_capacity(oldCapacity);
+//        schedule.setDoctor_capacity(oldCapacity);
         shiftScheduleRepository.save(schedule);
         orderTableRespository.save(newOrder);
 
