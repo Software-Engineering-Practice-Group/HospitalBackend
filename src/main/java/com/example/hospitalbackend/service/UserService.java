@@ -1,11 +1,14 @@
 package com.example.hospitalbackend.service;
 
-import com.example.hospitalbackend.entity.UserAuth;
+import com.example.hospitalbackend.entity.Users;
+import com.example.hospitalbackend.utils.msgutils.Msg;
 
 public interface UserService {
-    UserAuth checkUser(String username, String password);
+    Users checkUser(String account, String password);
 
-    UserAuth getById(Integer userId);
+    Users getById(Integer userId);
 
     String getNameById(Integer userId);
+
+    Msg register(String username, String password, String tel, String email, Integer gender);
 }
