@@ -27,8 +27,8 @@ public class Users {
     @Column(name = "identity", nullable = false)
     private int identity;
     @Basic
-    @Column(name = "Gender", nullable = false)
-    private int Gender;
+    @Column(name = "gender", nullable = false)
+    private int gender;
     @Basic
     @Column(name = "tel", nullable = false, length = 11)
     private String tel;
@@ -72,12 +72,12 @@ public class Users {
     }
 
     public Integer getGender() {
-        return Gender;
+        return gender;
     }
 
 
     public void setGender(Integer gender) {
-        this.Gender = gender;
+        this.gender = gender;
     }
 
     public String getTel() {
@@ -109,11 +109,11 @@ public class Users {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Users users = (Users) o;
-        return id == users.id && identity == users.identity && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(Gender, users.Gender) && Objects.equals(tel, users.tel) && Objects.equals(mail, users.mail) && Objects.equals(weiyue, users.weiyue);
+        return id == users.id && identity == users.identity && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(gender, users.gender) && Objects.equals(tel, users.tel) && Objects.equals(mail, users.mail) && Objects.equals(weiyue, users.weiyue);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, identity, Gender, tel, mail, weiyue);
+        return Objects.hash(id, username, password, identity, gender, tel, mail, weiyue);
     }
 }
