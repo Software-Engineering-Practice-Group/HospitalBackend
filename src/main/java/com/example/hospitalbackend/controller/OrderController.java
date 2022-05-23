@@ -9,14 +9,13 @@ import com.example.hospitalbackend.entity.OrderTable;
 import com.example.hospitalbackend.service.DepartmentService;
 import com.example.hospitalbackend.service.DoctorService;
 import com.example.hospitalbackend.service.OrderTableService;
-import net.sf.json.JSONObject;
 import com.example.hospitalbackend.service.UserService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.criteria.Order;
 import java.util.List;
 import java.util.Map;
 
@@ -33,11 +32,13 @@ public class OrderController {
     private DepartmentService departmentService;
 
 
-    /**
-     * @Description: addOrder
-     * @Param: order
-     * @return: OrderTable
-     * @Author: 赵熙
+    /*
+     *
+     * @Description: 增加新的预约单
+     * @param order
+     * @return com.example.hospitalbackend.entity.OrderTable
+     * @author 赵熙
+     * @date 2022/5/23 19:34
      */
     @RequestMapping("/addOrder")
     OrderTable addNewOrder(@RequestBody JSONObject order){

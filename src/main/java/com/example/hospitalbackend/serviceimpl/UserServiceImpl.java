@@ -2,8 +2,9 @@ package com.example.hospitalbackend.serviceimpl;
 
 
 import com.example.hospitalbackend.dao.UserDao;
-import com.example.hospitalbackend.entity.UserAuth;
+import com.example.hospitalbackend.entity.Users;
 import com.example.hospitalbackend.service.UserService;
+import com.example.hospitalbackend.utils.msgutils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,27 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public UserAuth checkUser(String username,String passwoed){
-        return userDao.checkUser(username,passwoed);
+    public Users checkUser(String account, String passwoed){
+        return userDao.checkUser(account,passwoed);
     }
 
     @Override
-    public UserAuth getById(Integer userId){return userDao.getById(userId);}
+    public Users getById(Integer userId){return userDao.getById(userId);}
 
     @Override
     public String getNameById(Integer userId){
-        UserAuth tmp = userDao.getById(userId);
+        Users tmp = userDao.getById(userId);
         return tmp.getUsername();
+    }
+
+
+    @Override
+    public Msg register(String username, String password, String tel, String email, Integer gender) {
+        Msg msg =userDao.checkUserDup(username);
+        if(msg.getStatus()<0)
+            return msg;
+        System.out.println(email);
+        return userDao.register(username,password,tel,email,gender);
     }
 
 }
