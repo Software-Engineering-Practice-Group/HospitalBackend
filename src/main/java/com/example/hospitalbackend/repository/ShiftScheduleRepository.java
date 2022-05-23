@@ -15,4 +15,7 @@ public interface ShiftScheduleRepository  extends JpaRepository<ShiftSchedule,In
     @Query("select b from ShiftSchedule b")
     List<ShiftSchedule> getShiftSchedule();
 
+    @Query(value = "from ShiftSchedule where doctor_id =: doctor_id ")
+    ShiftSchedule getByDocId(Integer doctor_id);
+
 }

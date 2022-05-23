@@ -41,9 +41,12 @@ public class ScheduleController {
      * @Description: getTodayScheByDep
      * @Param: date, department
      * @return: JSON.toJSONString([
-     *     {“image” : “url”, “name” : “张锋”,  “title” : “专家“ ，“info”：“blabla”, “doctor_capacity” : 10 ，“time”: 1},
+     *     {“image” : “url”,"id : "1", “name” : “张锋”,  “title” : “专家“ ，“info”：“blabla”, “doctor_capacity” : 10 ，“time”: 1},
      *     {...}
      * ])
+     * 【返回信息中添加id项，前端可选择性展示，
+     * 但管理员修改医生信息时需根据主键id选择医生进行修改，
+     * 此时在医生展示页面返回的信息中包含id就很必要，供前端获取】
      * @Author: Kiddo
      */
     @RequestMapping("/getTodayScheByDep")
@@ -62,6 +65,7 @@ public class ScheduleController {
             if(doc.getDepartment().equals(department)){
                 JSONObject singleSche1=new JSONObject();
                 singleSche1.put("image",doc.getImage());
+                singleSche1.put("id",doc.getId());
                 singleSche1.put("name",doc.getName());
                 singleSche1.put("title",doc.getTitle());
                 singleSche1.put("info",doc.getInfo());
@@ -69,6 +73,7 @@ public class ScheduleController {
                 singleSche1.put("time",1);
                 JSONObject singleSche2=new JSONObject();
                 singleSche2.put("image",doc.getImage());
+                singleSche2.put("id",doc.getId());
                 singleSche2.put("name",doc.getName());
                 singleSche2.put("title",doc.getTitle());
                 singleSche2.put("info",doc.getInfo());
@@ -76,12 +81,15 @@ public class ScheduleController {
                 singleSche2.put("time",2);
                 JSONObject singleSche3=new JSONObject();
                 singleSche3.put("image",doc.getImage());
+                singleSche3.put("id",doc.getId());
                 singleSche3.put("name",doc.getName());
                 singleSche3.put("title",doc.getTitle());
                 singleSche3.put("info",doc.getInfo());
                 singleSche3.put("doctor_capacity",todayDocs.get(i).getTime3());
                 singleSche3.put("time",3);
                 JSONObject singleSche4=new JSONObject();
+                singleSche4.put("image",doc.getImage());
+                singleSche4.put("id",doc.getId());
                 singleSche4.put("name",doc.getName());
                 singleSche4.put("title",doc.getTitle());
                 singleSche4.put("info",doc.getInfo());

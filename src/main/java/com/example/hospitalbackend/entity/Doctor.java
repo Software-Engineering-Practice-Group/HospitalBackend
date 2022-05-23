@@ -21,6 +21,7 @@ public class Doctor {
     @Column(name = "id")
     private Integer id;
     private String name;
+    private String password;
     private String department;
     private String title;
     private String info;
@@ -40,6 +41,10 @@ public class Doctor {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getDepartment() {
