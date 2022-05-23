@@ -4,7 +4,9 @@ package com.example.hospitalbackend.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.example.hospitalbackend.constant.Constant;
+import com.example.hospitalbackend.entity.Department;
 import com.example.hospitalbackend.entity.OrderTable;
+import com.example.hospitalbackend.service.DepartmentService;
 import com.example.hospitalbackend.service.DoctorService;
 import com.example.hospitalbackend.service.OrderTableService;
 import net.sf.json.JSONObject;
@@ -27,6 +29,8 @@ public class OrderController {
     private UserService userService;
     @Autowired
     private DoctorService doctorService;
+    @Autowired
+    private DepartmentService departmentService;
 
 
     /**
@@ -72,7 +76,23 @@ public class OrderController {
             singleOrder.put("deptName",doctorService.getDepById(tmpOrder.getDoctor_id()));
             singleOrder.put("doctorName",doctorService.getNameById(tmpOrder.getDoctor_id()));
             singleOrder.put("info",tmpOrder.getInfo());
-            singleOrder.put("process",tmpOrder.getProcess());
+            Integer process=tmpOrder.getProcess();
+            Department dep=departmentService.getByName(doctorService.getDepById(tmpOrder.getDoctor_id()));
+            switch (process){
+                case 2:
+                    singleOrder.put("process",dep.getProcess2());
+                    break;
+                case 3:
+                    singleOrder.put("process",dep.getProcess3());
+                    break;
+                case 4:
+                    singleOrder.put("process",dep.getProcess4());
+                    break;
+                default:
+                    singleOrder.put("process",dep.getProcess1());
+                    break;
+            }
+
             allOrder.add(singleOrder);
         }
         return JSON.toJSONString(allOrder);

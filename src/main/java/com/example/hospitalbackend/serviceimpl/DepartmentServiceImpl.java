@@ -18,4 +18,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> getDepartments(){
         return departmentDao.getDepartments();
     }
+
+    @Override
+    public Department getByName(String depName){
+        return departmentDao.getByName(depName);
+    }
+
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface DepartmentDao {
 
     List<Department> getDepartments();
+
+    Department getByName(String depName);
 }

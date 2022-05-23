@@ -16,4 +16,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public List<Department> getDepartments(){
         return departmentRepository.getDepartments();
     }
+
+    @Override
+    public Department getByName(String depName){
+        return departmentRepository.getByName(depName);
+    }
 }

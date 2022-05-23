@@ -11,4 +11,7 @@ public interface DepartmentRepository extends JpaRepository<Department,Integer> 
         @Query("select b from Department b")
         List<Department> getDepartments();
 
+        @Query("from Department where name=:name")
+        Department getByName(String name);
+
 }
