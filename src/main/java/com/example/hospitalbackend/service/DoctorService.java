@@ -8,5 +8,9 @@ public interface DoctorService {
 
     Doctor getDoctorById(Integer id);
 
+    String getNameById(Integer userId);
+
+    String getDepById(Integer userId);
+
     List<Doctor> getDoctors();
 }

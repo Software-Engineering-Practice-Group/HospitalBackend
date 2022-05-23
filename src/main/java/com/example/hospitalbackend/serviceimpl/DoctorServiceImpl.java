@@ -20,6 +20,18 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public String getNameById(Integer userId){
+        Doctor tmp = doctorDao.getDoctorById(userId);
+        return tmp.getName();
+    }
+
+    @Override
+    public String getDepById(Integer userId){
+        Doctor tmp = doctorDao.getDoctorById(userId);
+        return tmp.getDepartment();
+    }
+
+    @Override
     public List<Doctor> getDoctors(){
         return doctorDao.getDoctors();
     }

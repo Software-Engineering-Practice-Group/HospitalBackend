@@ -33,6 +33,19 @@ public class ShiftSchedule {
     private Integer time3;
     private Integer time4;
 
+    public ShiftSchedule(){}
+    public ShiftSchedule(Date date, Integer doctor_id, String doctor_name,
+                         Integer time1,Integer time2,Integer time3,Integer time4) {
+//        this.id = id;
+        this.date = date;
+        this.doctor_id = doctor_id;
+        this.doctor_name = doctor_name;
+        this.time1 = time1;
+        this.time2 = time2;
+        this.time3 = time3;
+        this.time4 = time4;
+    }
+
     /*@Column注解用来标识实体类中属性与数据表中字段的对应关系*/
     /*@Transient :在实体类（pojo）属性上使用、表示数据库表中没有这个字段就忽略。*/
 

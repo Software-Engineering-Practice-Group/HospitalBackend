@@ -20,17 +20,20 @@ public class UserAuth {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    private Integer userid;
+    private Integer id;
     private String username;
     private String password;
     private Integer identity;
+    private Integer weiyue;
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getWeiyue(){return weiyue;}
+
+    public void setWeiyue(Integer weiyue) {
+        this.weiyue = weiyue;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public Integer getUserid() {
+        return id;
     }
 
     public Integer getIdentity() {

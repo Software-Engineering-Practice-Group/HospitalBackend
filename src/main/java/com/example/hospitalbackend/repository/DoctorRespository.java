@@ -8,8 +8,11 @@ import java.util.List;
 
 public interface DoctorRespository extends JpaRepository<Doctor,Integer> {
 
-        Doctor getDoctorById(Integer id);
-        List<Doctor> findDoctorByDepartment(String department);
+//        List<Doctor> findDoctorByDepartment(String department);
+
+        @Override
+        @Query("from Doctor where id=:id")
+        Doctor getById(Integer id);
 
         @Query("select b from Doctor b")
         List<Doctor> getDoctors();

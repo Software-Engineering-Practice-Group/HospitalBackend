@@ -18,4 +18,14 @@ public class UserServiceImpl implements UserService {
     public UserAuth checkUser(String username,String passwoed){
         return userDao.checkUser(username,passwoed);
     }
+
+    @Override
+    public UserAuth getById(Integer userId){return userDao.getById(userId);}
+
+    @Override
+    public String getNameById(Integer userId){
+        UserAuth tmp = userDao.getById(userId);
+        return tmp.getUsername();
+    }
+
 }

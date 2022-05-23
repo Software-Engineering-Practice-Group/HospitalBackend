@@ -2,7 +2,7 @@ package com.example.hospitalbackend.dao;
 
 import com.example.hospitalbackend.entity.ShiftSchedule;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public interface ShiftScheduleDao {

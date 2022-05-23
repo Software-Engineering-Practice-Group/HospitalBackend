@@ -15,8 +15,14 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     UserAuthRepository userRepository;
 
-    public UserAuth checkUser(String usrername,String password){
+    @Override
+    public UserAuth checkUser(String usrername, String password){
         return userAuthRepository.checkUser(usrername,password);
+    }
+
+    @Override
+    public UserAuth getById(Integer userId){
+        return userAuthRepository.getById(userId);
     }
 
 

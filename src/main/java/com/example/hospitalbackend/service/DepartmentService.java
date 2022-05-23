@@ -4,7 +4,7 @@ import com.example.hospitalbackend.entity.Department;
 import com.example.hospitalbackend.entity.Department;
 import com.example.hospitalbackend.entity.ShiftSchedule;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public interface DepartmentService {

@@ -8,12 +8,24 @@ import com.example.hospitalbackend.service.ShiftScheduleService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.hibernate.*;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.sql.JoinType;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Date;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -35,12 +47,13 @@ public class ScheduleController {
      * @Author: Kiddo
      */
     @RequestMapping("/getTodayScheByDep")
-    public String getTodayScheByDep(@RequestBody Map params){
-        System.out.println("???");
-        Date date = (Date) params.get(Constant.DATE);
-        System.out.println("???");
-        String department = (String) params.get(Constant.DEPARTMENT);
-//        System.out.println(date);
+    public String getTodayScheByDep(@RequestBody JSONObject infos) throws ParseException {
+        //String 转 Date
+        String date_1=infos.getString("date");
+        SimpleDateFormat da=new SimpleDateFormat("yyyy-MM-dd");
+        Date date=da.parse(date_1);
+        System.out.println(date);
+        String department = infos.getString("department");
 
         JSONArray allSche=new JSONArray();
         List<ShiftSchedule> todayDocs= shiftScheduleService.getShiftSchedulesByDate(date);
@@ -78,6 +91,7 @@ public class ScheduleController {
                 allSche.add(singleSche2);
                 allSche.add(singleSche3);
                 allSche.add(singleSche4);
+
             }
 
         }

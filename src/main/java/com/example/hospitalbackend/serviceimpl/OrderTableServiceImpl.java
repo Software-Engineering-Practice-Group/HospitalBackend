@@ -15,14 +15,14 @@ public class OrderTableServiceImpl implements OrderTableService {
 
     /*未实现*/
     @Override
-    public List<OrderTable> getOrderTableByPid(Integer id){
-        return null;
+    public List<OrderTable> getOrderByUser(Integer userId) {
+        return orderTableDao.getOrderByUser(userId);
     }
 
     @Override
-    public OrderTable AddNewOrder(int DoctorId,int PatientId, int orderNum,int ScheduleId)
+    public OrderTable addNewOrder(int DoctorId,int PatientId, int orderNum,int ScheduleId)
     {
-        return orderTableDao.AddNewOrder(DoctorId,PatientId,orderNum,ScheduleId);
+        return orderTableDao.addNewOrder(DoctorId,PatientId,orderNum,ScheduleId);
     }
 
 }

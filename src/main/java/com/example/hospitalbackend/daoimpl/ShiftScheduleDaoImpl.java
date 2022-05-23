@@ -6,7 +6,7 @@ import com.example.hospitalbackend.repository.ShiftScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,7 +18,17 @@ public class ShiftScheduleDaoImpl implements ShiftScheduleDao {
 
     @Override
     public List<ShiftSchedule>  getShiftSchedulesByDate(Date date){
-        return shiftScheduleRepository.getShiftSchedulesByDate(date);
+        //【util.Date转sql.Date后才能正常操作数据库】
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        //添加（debug用
+//        ShiftSchedule newSche= new ShiftSchedule(sqlDate,1,"张锋",2,2,2,2);
+//        System.out.println(newSche);
+//        shiftScheduleRepository.save(newSche);
+//        shiftScheduleRepository.flush();
+        //读取
+        List<ShiftSchedule> scheGot=shiftScheduleRepository.getShiftSchedulesByDate(sqlDate);
+        System.out.println(scheGot);
+        return scheGot;
     }
     @Override
     public List<ShiftSchedule> getShiftSchedules(){

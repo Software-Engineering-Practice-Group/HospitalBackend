@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface OrderTableService {
 
-    OrderTable AddNewOrder(int DoctorId, int PatientId, int orderNum, int ScheduleId);
+    OrderTable addNewOrder(int DoctorId, int PatientId, int orderNum, int ScheduleId);
 
     //List<OrderTable> getOrderTable(Integer id);
-    List<OrderTable> getOrderTableByPid(Integer id);
+    List<OrderTable> getOrderByUser(Integer userId);
 }

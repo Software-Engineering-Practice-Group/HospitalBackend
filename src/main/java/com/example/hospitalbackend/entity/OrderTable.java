@@ -15,22 +15,23 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 public class OrderTable {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    private java.sql.Date date;
     private Integer user_id;
     private Integer doctor_id;
     private Integer state;
     private String info;
-
     private Integer process;
+    private Integer time;
 
     public Integer getId() {
         return id;
@@ -41,11 +42,13 @@ public class OrderTable {
     }
 
     public Date getDate() {
-        return date;
+        Date utilDate = new java.util.Date(date.getTime());
+        return utilDate;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+        this.date = sqlStartDate;
     }
 
     public Integer getState() {
@@ -67,6 +70,8 @@ public class OrderTable {
     public String getInfo() {
         return info;
     }
+
+    public Integer getTime() {return time;}
 
     public void setInfo(String info) {
         this.info = info;
