@@ -33,26 +33,37 @@ public class SessionUtil {
             HttpServletRequest request = requestAttributes.getRequest();
             HttpSession session = request.getSession(false);
 
-            if(session != null) {
+            if (session != null) {
                 JSONObject ret = new JSONObject();
-                ret.put(Constant.USER_ID, (Integer)session.getAttribute(Constant.USER_ID));
-                ret.put(Constant.USERNAME, (String)session.getAttribute(Constant.USERNAME));
-                ret.put(Constant.USER_TYPE, (Integer)session.getAttribute(Constant.USER_TYPE));
+                ret.put(Constant.USER_ID, (Integer) session.getAttribute(Constant.USER_ID));
+                ret.put(Constant.USERNAME, (String) session.getAttribute(Constant.USERNAME));
+                ret.put(Constant.USER_TYPE, (Integer) session.getAttribute(Constant.USER_TYPE));
                 return ret;
             }
         }
         return null;
     }
 
-    public static void setSession(JSONObject data){
+    public static Integer getUserId() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            HttpServletRequest request = requestAttributes.getRequest();
+            HttpSession session = request.getSession(false);
+            if (session != null)
+                return (Integer) session.getAttribute("id");
+        }
+        return null;
+    }
+
+    public static void setSession(JSONObject data) {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         // Session
-        if(requestAttributes != null) {
+        if (requestAttributes != null) {
             HttpServletRequest request = requestAttributes.getRequest();
             HttpSession session = request.getSession();
 
-            for(Object str:data.keySet()){
-                String key = (String)str;
+            for (Object str : data.keySet()) {
+                String key = (String) str;
                 Object val = data.get(key);
                 session.setAttribute(key, val);
             }

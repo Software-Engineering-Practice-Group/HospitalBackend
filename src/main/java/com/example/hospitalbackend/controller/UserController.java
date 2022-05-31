@@ -22,7 +22,7 @@ public class UserController {
 
     /*
      *
-     * @Description: 患者注册
+     * @Description: 患者注册，传入内容 username password  tel  mail gender
      * @param params
      * @return com.example.hospitalbackend.utils.msgutils.Msg
      * @author 赵熙
@@ -75,8 +75,9 @@ public class UserController {
         }
 
     }
+
     /**
-     * @Description: logout
+     * @Description:退出登录 logout
      * @Param: null
      * @return: Msg
      * @Author: Kiddo
