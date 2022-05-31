@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Kiddo
+ Source Server         : Mysql
  Source Server Type    : MySQL
- Source Server Version : 80028
+ Source Server Version : 80029
  Source Host           : localhost:3306
- Source Schema         : hospital_
+ Source Schema         : hospital
 
  Target Server Type    : MySQL
- Target Server Version : 80028
+ Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 23/05/2022 16:11:33
+ Date: 31/05/2022 16:42:49
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `department`  (
   `process6` varchar(255) CHARACTER SET gbk COLLATE gbk_chinese_ci NULL DEFAULT NULL,
   `capacity` int NULL DEFAULT NULL,
   PRIMARY KEY (`dep_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = gbk COLLATE = gbk_chinese_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = gbk COLLATE = gbk_chinese_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of department
@@ -55,7 +55,7 @@ CREATE TABLE `doctor`  (
   `info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '医生简介',
   `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '医生图片',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of doctor
@@ -79,7 +79,7 @@ CREATE TABLE `orders`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   INDEX `doctor_id`(`doctor_id` ASC) USING BTREE,
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = gbk COLLATE = gbk_chinese_ci ROW_FORMAT = DYNAMIC;
 
@@ -113,26 +113,26 @@ INSERT INTO `schedule` VALUES (2, '2022-04-26', '2', '邱伟华', 1, 2, 5, 0, 0)
 INSERT INTO `schedule` VALUES (3, '2022-04-19', '2', '邱伟华', 4, 12, 14, 8, 0);
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for users
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '登录账号id',
   `username` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '账户名（最高6位）',
   `password` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '登录密码(不超过10位)',
   `identity` int NOT NULL COMMENT '用户身份 1、患者2管理员',
-  `
-gender` int NOT NULL COMMENT '性别：1 男 2 女',
   `tel` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '电话号码',
   `mail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱',
   `weiyue` int NULL DEFAULT NULL COMMENT '违约次数',
+  `gender` int NOT NULL COMMENT '性别：1 男 2 女',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
--- Records of user
+-- Records of users
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '张义', '123456', 2, 1, '17605116678', '133656499@gmail', NULL);
-INSERT INTO `user` VALUES (2, '仇玲', '123456', 1, 1, '13365487596', '133562459@gmail', 0);
+INSERT INTO `users` VALUES (1, '张义', '123456', 2, '17605116678', '133656499@gmail', 0, 1);
+INSERT INTO `users` VALUES (2, '仇玲', '123456', 1, '13365487596', '133562459@gmail', 0, 1);
+INSERT INTO `users` VALUES (8, '赵四', '741852za', 1, '13365487597', '15446464789@qq.com', 0, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
