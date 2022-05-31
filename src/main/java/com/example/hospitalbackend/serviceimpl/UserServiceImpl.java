@@ -44,8 +44,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Msg register(String username, String password, String tel, String email, Integer gender) {
         Msg msg = userDao.checkUserDup(username);
-        if (msg.getStatus() < 0)
+        if (msg.getStatus() < 0) {
             return msg;
+        }
         System.out.println(email);
         return userDao.register(username, password, tel, email, gender);
     }
@@ -66,7 +67,9 @@ public class UserServiceImpl implements UserService {
         Users user = userDao.getById(userId);
         List<OrderTable> orderTable = orderTableService.getOrderByUser(userId);
         List<JSONObject> orders;
-        if (userId == null) return null;
+        if (userId == null) {
+            return null;
+        }
         for (int i = 0; i < orderTable.size(); ++i) {
             JSONObject order = new JSONObject();
             order.put("name", user.getUsername());

@@ -9,5 +9,7 @@ public interface ShiftScheduleDao {
     //ShiftSchedule getShiftScheduleByID(Integer id);
     List<ShiftSchedule> getShiftSchedulesByDate(Date date);
 
+    ShiftSchedule getByDocIdAndDate(Integer doctor_id, Date date);
+
     List<ShiftSchedule> getShiftSchedules();
 }

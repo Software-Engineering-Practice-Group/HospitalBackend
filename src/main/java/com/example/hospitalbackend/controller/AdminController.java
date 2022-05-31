@@ -1,5 +1,7 @@
 package com.example.hospitalbackend.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.hospitalbackend.entity.*;
 import com.example.hospitalbackend.entity.OrderTable;
@@ -12,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.stereotype.Repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /*管理员控制：主要完成管理员的相关操作，譬如修改信息、指定排班表等，*/
 @RestController
@@ -20,6 +26,8 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private DoctorService doctorService;
+    @Autowired
+    private ShiftScheduleService shiftScheduleService;
     @Autowired
     private DoctorRespository doctorRespository;
     @Autowired
@@ -51,7 +59,7 @@ public class AdminController {
     @RequestMapping("/changeDocName")
     Doctor changeDocName(@RequestBody JSONObject param){
         Integer docId = param.getInteger("doctor_id");
-        String newName = param.getString("name");
+        String newName = param.getString("new_name");
         Doctor doc = doctorRespository.getById(docId);
         doc.setName(newName);
         doctorRespository.save(doc);
@@ -66,7 +74,7 @@ public class AdminController {
     @RequestMapping("/changeDocTitle")
     Doctor changeDocTitle(@RequestBody JSONObject param){
         Integer docId = param.getInteger("doctor_id");
-        String newTitle = param.getString("title");
+        String newTitle = param.getString("new_title");
         Doctor doc = doctorRespository.getById(docId);
         doc.setTitle(newTitle);
         doctorRespository.save(doc);
@@ -81,7 +89,7 @@ public class AdminController {
     @RequestMapping("/changeDocInfo")
     Doctor changeDocInfo(@RequestBody JSONObject param){
         Integer docId = param.getInteger("doctor_id");
-        String newInfo = param.getString("info");
+        String newInfo = param.getString("new_info");
         Doctor doc = doctorRespository.getById(docId);
         doc.setInfo(newInfo);
         doctorRespository.save(doc);
@@ -96,25 +104,31 @@ public class AdminController {
     @RequestMapping("/changeDocPsw")
     Doctor changeDocPsw(@RequestBody JSONObject param){
         Integer docId = param.getInteger("doctor_id");
-        String newPsw = param.getString("password");
+        String newPsw = param.getString("new_password");
         Doctor doc = doctorRespository.getById(docId);
         doc.setPassword(newPsw);
         doctorRespository.save(doc);
         return doctorRespository.getById(docId);
     }
+
     /**
      * changeDocCapacityByTime
+     *
      * @param param
      * @return com.example.hospitalbackend.entity.ShiftSchedule
      * @Author: Kiddo on 2022/5/23
      */
     @RequestMapping("/changeDocCapacityByTime")
-    ShiftSchedule changeDocCapacityByTime(@RequestBody JSONObject param){
+    ShiftSchedule changeDocCapacityByTime(@RequestBody JSONObject param) throws ParseException {
         Integer docId = param.getInteger("doctor_id");
+        //String 转 Date
+        String date_1 = param.getString("date");
+        SimpleDateFormat da = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = da.parse(date_1);
         Integer time = param.getInteger("time");
-        Integer newCapacity = param.getInteger("capacity");
-        ShiftSchedule sche = shiftScheduleRepository.getByDocId(docId);
-        switch (time){
+        Integer newCapacity = param.getInteger("new_capacity");
+        ShiftSchedule sche = shiftScheduleService.getByDocIdAndDate(docId, date);
+        switch (time) {
             case 2:
                 sche.setTime2(newCapacity);
                 break;
@@ -128,8 +142,9 @@ public class AdminController {
                 sche.setTime1(newCapacity);
                 break;
         }
-        shiftScheduleRepository.save(sche);
-        return shiftScheduleRepository.getByDocId(docId);
+        System.out.println(sche);
+//        shiftScheduleRepository.save(sche);
+        return shiftScheduleService.getByDocIdAndDate(docId, date);
     }
 
 }

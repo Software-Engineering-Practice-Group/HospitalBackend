@@ -77,6 +77,7 @@ public class OrderController {
             singleOrder.put("deptName",doctorService.getDepById(tmpOrder.getDoctor_id()));
             singleOrder.put("doctorName",doctorService.getNameById(tmpOrder.getDoctor_id()));
             singleOrder.put("info",tmpOrder.getInfo());
+
             Integer process=tmpOrder.getProcess();
             Department dep=departmentService.getByName(doctorService.getDepById(tmpOrder.getDoctor_id()));
             switch (process){
@@ -93,6 +94,7 @@ public class OrderController {
                     singleOrder.put("process",dep.getProcess1());
                     break;
             }
+            System.out.println("ok");
 
             allOrder.add(singleOrder);
         }

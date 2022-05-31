@@ -16,13 +16,19 @@ public class ShiftScheduleServiceImpl implements ShiftScheduleService {
     private ShiftScheduleDao shiftScheduleDao;
 
     @Override
-    public List<ShiftSchedule> getShiftSchedulesByDate(Date date)
-    {
-       return shiftScheduleDao.getShiftSchedulesByDate(date);
+    public List<ShiftSchedule> getShiftSchedulesByDate(Date date) {
+        return shiftScheduleDao.getShiftSchedulesByDate(date);
     }
 
+
     @Override
-    public List<ShiftSchedule> getShiftSchedules(){
+    public ShiftSchedule getByDocIdAndDate(Integer doctor_id, Date date) {
+        return shiftScheduleDao.getByDocIdAndDate(doctor_id, date);
+    }
+
+
+    @Override
+    public List<ShiftSchedule> getShiftSchedules() {
         return shiftScheduleDao.getShiftSchedules();
     }
 }

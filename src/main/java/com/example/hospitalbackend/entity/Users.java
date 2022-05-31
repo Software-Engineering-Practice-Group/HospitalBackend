@@ -106,8 +106,12 @@ public class Users {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Users users = (Users) o;
         return id == users.id && identity == users.identity && Objects.equals(username, users.username) && Objects.equals(password, users.password) && Objects.equals(gender, users.gender) && Objects.equals(tel, users.tel) && Objects.equals(mail, users.mail) && Objects.equals(weiyue, users.weiyue);
     }

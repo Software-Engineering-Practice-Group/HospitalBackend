@@ -17,21 +17,27 @@ public class ShiftScheduleDaoImpl implements ShiftScheduleDao {
     private ShiftScheduleRepository shiftScheduleRepository;
 
     @Override
-    public List<ShiftSchedule>  getShiftSchedulesByDate(Date date){
+    public List<ShiftSchedule> getShiftSchedulesByDate(Date date) {
         //【util.Date转sql.Date后才能正常操作数据库】
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        //添加（debug用
-//        ShiftSchedule newSche= new ShiftSchedule(sqlDate,1,"张锋",2,2,2,2);
-//        System.out.println(newSche);
-//        shiftScheduleRepository.save(newSche);
-//        shiftScheduleRepository.flush();
         //读取
-        List<ShiftSchedule> scheGot=shiftScheduleRepository.getShiftSchedulesByDate(sqlDate);
+        List<ShiftSchedule> scheGot = shiftScheduleRepository.getShiftSchedulesByDate(sqlDate);
         System.out.println(scheGot);
         return scheGot;
     }
+
     @Override
-    public List<ShiftSchedule> getShiftSchedules(){
+    public ShiftSchedule getByDocIdAndDate(Integer doctor_id, Date date) {
+        //【util.Date转sql.Date后才能正常操作数据库】
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        //读取
+        ShiftSchedule scheGot = shiftScheduleRepository.getByDocIdAndDate(doctor_id, sqlDate);
+//        System.out.println(scheGot);
+        return scheGot;
+    }
+
+    @Override
+    public List<ShiftSchedule> getShiftSchedules() {
         return shiftScheduleRepository.getShiftSchedule();
     }
 }
