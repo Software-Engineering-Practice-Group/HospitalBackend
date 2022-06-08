@@ -1,6 +1,6 @@
 # HospitalBackend
- JSON数据格式说明：https://shimo.im/file-invite/zIWaHctGdE3bw2M056/
- 
+ JSON数据格式说明：https://shimo.im/file-invite/zIWaHctGdE3l48lpO6/
+
  医院管理系统后端
  
  若有修改或对部分功能有疑问，可在群里讨论。
