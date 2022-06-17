@@ -28,7 +28,7 @@ public class OrderTableDaoImpl implements OrderTableDao {
      */
     @Transactional
     @Override
-    public OrderTable addNewOrder(int DoctorId, int PatientId, int rsvTime, int ScheduleId) {   /*增加新预约单并返回*/
+    public OrderTable addNewOrder(int DoctorId, int PatientId, int rsvTime, int ScheduleId, String info) {   /*增加新预约单并返回*/
         ShiftSchedule shiftSchedule = new ShiftSchedule();
         shiftSchedule = shiftScheduleRepository.getById(ScheduleId);
         int oldCapacity;
@@ -48,6 +48,7 @@ public class OrderTableDaoImpl implements OrderTableDao {
             newOrder.setDate(date);
             newOrder.setTime(rsvTime);
             newOrder.setProcess(1);
+            newOrder.setInfo(info);
             newOrder.setState(1);
             /*process默认为1*/
             /*更新容量*/
