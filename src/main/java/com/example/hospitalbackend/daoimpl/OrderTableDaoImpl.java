@@ -39,10 +39,13 @@ public class OrderTableDaoImpl implements OrderTableDao {
         } else if (rsvTime == 3) {
             oldCapacity = shiftSchedule.getTime3();
         } else oldCapacity = shiftSchedule.getTime4();
+        Date date = shiftSchedule.getDate();
 
+        if (isExist(PatientId, date)) {
+            return null;
+        }
         OrderTable newOrder = new OrderTable();
         if (oldCapacity > 0) {
-            Date date = shiftSchedule.getDate();
             newOrder.setDoctor_id(DoctorId);
             newOrder.setUser_id(PatientId);
             newOrder.setDate(date);
@@ -82,5 +85,23 @@ public class OrderTableDaoImpl implements OrderTableDao {
         List<OrderTable> orders = orderTableRespository.getOrderByUser(userId);
         System.out.println(orders);
         return orders;
+    }
+
+    /*
+     *
+     * @Description: 判断当前患者是否已经在当天有预约
+
+     * @param userId
+     * @param date
+     * @return boolean
+     * @author 赵熙
+     * @date 2022/6/18 1:37
+     */
+    public boolean isExist(Integer userId, Date date) {
+        List<OrderTable> orderTables = getOrderByUser(userId);
+        for (OrderTable orderTable : orderTables) {
+            if (orderTable.getDate() == date) return true;
+        }
+        return false;
     }
 }

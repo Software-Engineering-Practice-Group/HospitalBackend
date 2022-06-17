@@ -45,7 +45,7 @@ public class OrderController {
     "DoctorId": 1,医生ID
     "PatientId": 1,患者ID
     "rsvTime": 1,预约时间段
-    *“info”:“患者预约备注"
+    “info”:“患者预约备注"
     "ScheduleId": 排班表号
     }
     * */
