@@ -20,9 +20,8 @@ public class OrderTableServiceImpl implements OrderTableService {
     }
 
     @Override
-    public OrderTable addNewOrder(int DoctorId,int PatientId, int orderNum,int ScheduleId)
-    {
-        return orderTableDao.addNewOrder(DoctorId,PatientId,orderNum,ScheduleId);
+    public OrderTable addNewOrder(int DoctorId, int PatientId, int rsvTime, int ScheduleId) {
+        return orderTableDao.addNewOrder(DoctorId, PatientId, rsvTime, ScheduleId);
     }
 
 }

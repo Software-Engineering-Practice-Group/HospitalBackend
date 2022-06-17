@@ -5,13 +5,11 @@ import com.example.hospitalbackend.entity.OrderTable;
 import com.example.hospitalbackend.entity.ShiftSchedule;
 import com.example.hospitalbackend.repository.OrderTableRespository;
 import com.example.hospitalbackend.repository.ShiftScheduleRepository;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.Order;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -30,29 +28,43 @@ public class OrderTableDaoImpl implements OrderTableDao {
      */
     @Transactional
     @Override
-    public OrderTable addNewOrder(int DoctorId,int PatientId, int orderNum,int ScheduleId)
-    {   /*增加新预约单并返回*/
-        ShiftSchedule shiftSchedule=shiftScheduleRepository.getById(ScheduleId);
-        int oldCapacity=shiftSchedule.getTime1()+shiftSchedule.getTime2()
-                +shiftSchedule.getTime3()+shiftSchedule.getTime4();
-        OrderTable newOrder=new OrderTable();
+    public OrderTable addNewOrder(int DoctorId, int PatientId, int rsvTime, int ScheduleId) {   /*增加新预约单并返回*/
+        ShiftSchedule shiftSchedule = new ShiftSchedule();
+        shiftSchedule = shiftScheduleRepository.getById(ScheduleId);
+        int oldCapacity;
+        if (rsvTime == 1) {
+            oldCapacity = shiftSchedule.getTime1();
+        } else if (rsvTime == 2) {
+            oldCapacity = shiftSchedule.getTime2();
+        } else if (rsvTime == 3) {
+            oldCapacity = shiftSchedule.getTime3();
+        } else oldCapacity = shiftSchedule.getTime4();
 
-        if(oldCapacity>0){
+        OrderTable newOrder = new OrderTable();
+        if (oldCapacity > 0) {
+            Date date = shiftSchedule.getDate();
             newOrder.setDoctor_id(DoctorId);
             newOrder.setUser_id(PatientId);
-//            newOrder.setDate(orderNum);
+            newOrder.setDate(date);
+            newOrder.setTime(rsvTime);
             newOrder.setProcess(1);
+            newOrder.setState(1);
             /*process默认为1*/
+            /*更新容量*/
             oldCapacity--;
+            if (rsvTime == 1) {
+                shiftSchedule.setTime1(oldCapacity);
+            } else if (rsvTime == 2) {
+                shiftSchedule.setTime1(oldCapacity);
+            } else if (rsvTime == 3) {
+                shiftSchedule.setTime1(oldCapacity);
+            } else shiftSchedule.setTime1(oldCapacity);
         }
         else {
             /*前端返回为空则说明容量不足*/
             return null;
         }
-//        ShiftSchedule schedule=new ShiftSchedule();
-//        schedule.setId(ScheduleId);
-//        schedule.setDoctor_capacity(oldCapacity);
-//        shiftScheduleRepository.save(schedule);
+        shiftScheduleRepository.save(shiftSchedule);
         orderTableRespository.save(newOrder);
 
         return newOrder;

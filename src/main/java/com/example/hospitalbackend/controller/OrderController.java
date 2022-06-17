@@ -40,14 +40,21 @@ public class OrderController {
      * @author 赵熙
      * @date 2022/5/23 19:34
      */
+    /*
+    *{
+    "DoctorId": 1,医生ID
+    "PatientId": 1,患者ID
+    "rsvTime": 1,预约时间段
+    "ScheduleId": 排班表号
+    }
+    * */
     @RequestMapping("/addOrder")
-    OrderTable addNewOrder(@RequestBody JSONObject order){
-        int DoctorId=order.getInt("DoctorName");
-        int PatientId=order.getInt("PatientName");
-        int rsvTime=order.getInt("rsvTime");
-        int ScheduleId=order.getInt("ScheduleId");
-
-        OrderTable newOrder = orderTableService.addNewOrder(DoctorId,PatientId, rsvTime, ScheduleId);
+    OrderTable addNewOrder(@RequestBody JSONObject order) {
+        int DoctorId = order.getInt("DoctorId");
+        int PatientId = order.getInt("PatientId");
+        int rsvTime = order.getInt("rsvTime");
+        int ScheduleId = order.getInt("ScheduleId");
+        OrderTable newOrder = orderTableService.addNewOrder(DoctorId, PatientId, rsvTime, ScheduleId);
         return newOrder;
     }
 
