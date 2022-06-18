@@ -7,6 +7,7 @@ import com.example.hospitalbackend.repository.OrderTableRespository;
 import com.example.hospitalbackend.repository.ShiftScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -20,13 +21,19 @@ public class OrderTableDaoImpl implements OrderTableDao {
     @Autowired
     private ShiftScheduleRepository shiftScheduleRepository;
 
-    /**
-     * @Description: addNewOrder
-     * @Param: DoctorId, PatientId, orderNum, ScheduleId
-     * @return: OrderTable
-     * @Author: 赵熙
+    /*
+     *
+     * @Description: 增加订单功能
+     * @param DoctorId
+     * @param PatientId
+     * @param rsvTime
+     * @param ScheduleId
+     * @param info
+     * @return com.example.hospitalbackend.entity.OrderTable
+     * @author 赵熙
+     * @date 2022/6/01 8:25
      */
-    @Transactional
+    @Transactional(isolation= Isolation.REPEATABLE_READ)
     @Override
     public OrderTable addNewOrder(int DoctorId, int PatientId, int rsvTime, int ScheduleId, String info) {   /*增加新预约单并返回*/
         ShiftSchedule shiftSchedule = new ShiftSchedule();
@@ -45,6 +52,7 @@ public class OrderTableDaoImpl implements OrderTableDao {
             return null;
         }
         OrderTable newOrder = new OrderTable();
+        /*再次检查容量*/
         if (oldCapacity > 0) {
             newOrder.setDoctor_id(DoctorId);
             newOrder.setUser_id(PatientId);
@@ -65,7 +73,7 @@ public class OrderTableDaoImpl implements OrderTableDao {
             } else shiftSchedule.setTime1(oldCapacity);
         }
         else {
-            /*前端返回为空则说明容量不足*/
+            /*前端返回为空则说明容量不足，预约失败*/
             return null;
         }
         shiftScheduleRepository.save(shiftSchedule);
@@ -90,7 +98,6 @@ public class OrderTableDaoImpl implements OrderTableDao {
     /*
      *
      * @Description: 判断当前患者是否已经在当天有预约
-
      * @param userId
      * @param date
      * @return boolean

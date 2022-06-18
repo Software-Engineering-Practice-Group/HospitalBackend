@@ -7,6 +7,7 @@ import com.example.hospitalbackend.entity.Doctor;
 import com.example.hospitalbackend.entity.ShiftSchedule;
 import com.example.hospitalbackend.service.DoctorService;
 import com.example.hospitalbackend.service.ShiftScheduleService;
+import com.example.hospitalbackend.utils.sessionutils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class ScheduleController {
     @RequestMapping("/getTodayScheByDep")
     public String getTodayScheByDep(@RequestBody JSONObject infos) throws ParseException {
         //String 转 Date
+        if (!SessionUtil.checkAuth())return null;
         String date_1=infos.getString("date");
         SimpleDateFormat da=new SimpleDateFormat("yyyy-MM-dd");
         Date date=da.parse(date_1);

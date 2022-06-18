@@ -10,7 +10,9 @@ import com.example.hospitalbackend.service.DepartmentService;
 import com.example.hospitalbackend.service.DoctorService;
 import com.example.hospitalbackend.service.OrderTableService;
 import com.example.hospitalbackend.service.UserService;
+import com.example.hospitalbackend.utils.sessionutils.SessionUtil;
 import net.sf.json.JSONObject;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,7 @@ public class OrderController {
     private DepartmentService departmentService;
 
 
+
     /*
      *
      * @Description: 增加新的预约单
@@ -41,7 +44,8 @@ public class OrderController {
      * @date 2022/5/23 19:34
      */
     /*
-    *{
+    *
+    {
     "DoctorId": 1,医生ID
     "PatientId": 1,患者ID
     "rsvTime": 1,预约时间段
@@ -51,6 +55,7 @@ public class OrderController {
     * */
     @RequestMapping("/addOrder")
     OrderTable addNewOrder(@RequestBody JSONObject order) {
+        if (!SessionUtil.checkAuth())return null;
         int DoctorId = order.getInt("DoctorId");
         int PatientId = order.getInt("PatientId");
         int rsvTime = order.getInt("rsvTime");
@@ -74,6 +79,7 @@ public class OrderController {
      */
     @RequestMapping("/getOrderByUser")
     String getOrderByUser(@RequestBody Map<String,Integer> params){
+        if (!SessionUtil.checkAuth())return null;
         Integer userId=params.get(Constant.USER_ID);
         List<OrderTable> orders=orderTableService.getOrderByUser(userId);
         JSONArray allOrder=new JSONArray();

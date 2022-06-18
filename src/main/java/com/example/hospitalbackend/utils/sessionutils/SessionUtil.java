@@ -17,10 +17,10 @@ public class SessionUtil {
         if(requestAttributes != null) {
             HttpServletRequest request = requestAttributes.getRequest();
             HttpSession session = request.getSession(false);
-
+            /*身份类型管理员2；患者1*/
             if(session != null) {
                 Integer userType = (Integer) session.getAttribute(Constant.USER_TYPE);
-                return userType != null && userType >= 0;
+                return userType != null && userType > 0;
             }
         }
         return false;
